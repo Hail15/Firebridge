@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FireBridge — Command Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --fire: #FF4500;
+    --fire-dim: #CC3300;
+    --ember: #FF8C00;
+    --smoke: #1a1a2e;
+    --ash: #0d0d1a;
+    --codered: #CC3300;
+    --everbridge: #1565C0;
+    --grid: #ffffff08;
+    --border: #ffffff12;
+    --text: #e8e8e8;
+    --text-dim: #888;
+    --green: #00C853;
+    --panel: #111127;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--ash);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Glow orb */
+  body::after {
+    content: '';
+    position: fixed;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(255,69,0,0.12) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+  }
+
+  /* ── Header ── */
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 0 32px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 36px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  .logo-mark {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 32px;
+    letter-spacing: -0.5px;
+    color: white;
+  }
+
+  .logo-mark span {
+    color: var(--fire);
+  }
+
+  .logo-sub {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .status-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0,200,83,0.08);
+    border: 1px solid rgba(0,200,83,0.2);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--green);
+    letter-spacing: 1px;
+  }
+
+  .status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: pulse-green 2s infinite;
+  }
+
+  @keyframes pulse-green {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(0,200,83,0.4); }
+    50% { opacity: 0.8; box-shadow: 0 0 0 4px rgba(0,200,83,0); }
+  }
+
+  .clock {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+  }
+
+  /* ── Section labels ── */
+  .section-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--fire);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── Main grid ── */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+
+  /* ── Panels ── */
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .panel::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--fire) 0%, transparent 60%);
+  }
+
+  /* ── Scenario cards ── */
+  .scenarios-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .scenario-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scenario-card:hover {
+    border-color: var(--fire);
+    background: rgba(255,69,0,0.06);
+    transform: translateY(-1px);
+  }
+
+  .scenario-card.active {
+    border-color: var(--fire);
+    background: rgba(255,69,0,0.10);
+    box-shadow: 0 0 20px rgba(255,69,0,0.15);
+  }
+
+  .scenario-card.active::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--fire);
+  }
+
+  .scenario-icon {
+    font-size: 22px;
+    margin-bottom: 8px;
+  }
+
+  .scenario-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    color: white;
+    margin-bottom: 4px;
+  }
+
+  .scenario-stats {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: var(--ember);
+    letter-spacing: 1px;
+  }
+
+  .scenario-desc {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+
+  /* ── Location toggle ── */
+  .location-toggle {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .loc-btn {
+    flex: 1;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.03);
+    color: var(--text-dim);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+  }
+
+  .loc-btn.active-la {
+    border-color: var(--everbridge);
+    background: rgba(21,101,192,0.12);
+    color: #90CAF9;
+  }
+
+  .loc-btn.active-ven {
+    border-color: var(--codered);
+    background: rgba(204,51,0,0.12);
+    color: #FFAB91;
+  }
+
+  /* ── Fire button ── */
+  .fire-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--fire-dim), var(--fire));
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .fire-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(255,69,0,0.35);
+  }
+
+  .fire-btn:active { transform: translateY(0); }
+
+  .fire-btn:disabled {
+    background: #333;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .fire-btn.loading::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: -100%; right: 100%;
+    height: 3px;
+    background: rgba(255,255,255,0.5);
+    animation: loading-bar 1.5s infinite;
+  }
+
+  @keyframes loading-bar {
+    0% { left: -100%; right: 100%; }
+    50% { left: 0%; right: 0%; }
+    100% { left: 100%; right: -100%; }
+  }
+
+  /* ── Pipeline stages ── */
+  .pipeline {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+
+  .stage {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    background: rgba(255,255,255,0.02);
+    transition: all 0.4s;
+    white-space: nowrap;
+  }
+
+  .stage.done {
+    border-color: rgba(0,200,83,0.4);
+    color: var(--green);
+    background: rgba(0,200,83,0.06);
+  }
+
+  .stage.active-stage {
+    border-color: var(--ember);
+    color: var(--ember);
+    background: rgba(255,140,0,0.08);
+    animation: stage-pulse 0.8s infinite;
+  }
+
+  @keyframes stage-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+
+  .stage-arrow {
+    color: var(--border);
+    font-size: 10px;
+  }
+
+  /* ── Results panel ── */
+  .result-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 280px;
+    color: var(--text-dim);
+    gap: 12px;
+  }
+
+  .result-empty-icon {
+    font-size: 40px;
+    opacity: 0.3;
+  }
+
+  .result-empty-text {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .result-grid {
+    display: none;
+    gap: 16px;
+    flex-direction: column;
+  }
+
+  .result-grid.visible { display: flex; }
+
+  .result-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .result-block {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 12px 14px;
+  }
+
+  .result-block-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .result-block-value {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    color: white;
+    line-height: 1;
+  }
+
+  .result-block-sub {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 3px;
+  }
+
+  .platform-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 3px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+
+  .platform-badge.codered {
+    background: rgba(204,51,0,0.15);
+    border: 1px solid rgba(204,51,0,0.4);
+    color: #FF8A65;
+  }
+
+  .platform-badge.everbridge {
+    background: rgba(21,101,192,0.15);
+    border: 1px solid rgba(21,101,192,0.4);
+    color: #90CAF9;
+  }
+
+  .sms-preview {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--ember);
+    border-radius: 5px;
+    padding: 12px 14px;
+  }
+
+  .sms-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--ember);
+    margin-bottom: 8px;
+  }
+
+  .sms-text {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* ── Map button ── */
+  .map-btn {
+    width: 100%;
+    padding: 13px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-dim);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    margin-top: 16px;
+    display: none;
+  }
+
+  .map-btn.visible {
+    display: block;
+    border-color: var(--ember);
+    color: var(--ember);
+  }
+
+  .map-btn:hover {
+    background: rgba(255,140,0,0.08);
+    transform: translateY(-1px);
+  }
+
+  /* ── Bottom bar ── */
+  .bottom-bar {
+    margin-top: 24px;
+    padding: 16px 24px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .bottom-links {
+    display: flex;
+    gap: 16px;
+  }
+
+  .bottom-link {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    text-decoration: none;
+    letter-spacing: 1px;
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+
+  .bottom-link:hover {
+    color: var(--fire);
+    border-color: var(--fire);
+    background: rgba(255,69,0,0.05);
+  }
+
+  .bottom-meta {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+  }
+
+  /* ── Notification toast ── */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--panel);
+    border: 1px solid var(--green);
+    border-radius: 8px;
+    padding: 14px 20px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    color: var(--green);
+    letter-spacing: 1px;
+    z-index: 1000;
+    transform: translateY(80px);
+    opacity: 0;
+    transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(0,200,83,0.2);
+  }
+
+  .toast.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  /* ── Skew visual ── */
+  .skew-bar-wrap {
+    margin-top: 8px;
+  }
+
+  .skew-bar-track {
+    height: 4px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 4px;
+  }
+
+  .skew-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--ember), var(--fire));
+    border-radius: 2px;
+    transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
+    width: 0%;
+  }
+
+  .mock-badge {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 3px 8px;
+    display: inline-block;
+    margin-top: 8px;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <div class="logo-mark">🔥 Fire<span>Bridge</span></div>
+      <div class="logo-sub">Pano AI → Mass Notification Middleware</div>
+    </div>
+    <div class="header-right">
+      <div class="status-pill">
+        <div class="status-dot"></div>
+        <span>SERVER ONLINE</span>
+      </div>
+      <div class="clock" id="clock">--:--:-- UTC</div>
+    </div>
+  </header>
+
+  <!-- Main grid -->
+  <div class="main-grid">
+
+    <!-- LEFT: Control Panel -->
+    <div>
+      <div class="section-label">Wind Scenario</div>
+      <div class="panel">
+
+        <div class="scenarios-grid">
+          <div class="scenario-card active" onclick="selectScenario('santa_ana', this)">
+            <div class="scenario-icon">🌵</div>
+            <div class="scenario-name">Santa Ana</div>
+            <div class="scenario-stats">35 MPH · NE · 045°</div>
+            <div class="scenario-desc">Classic SoCal offshore fire weather</div>
+          </div>
+          <div class="scenario-card" onclick="selectScenario('diablo', this)">
+            <div class="scenario-icon">🔥</div>
+            <div class="scenario-name">Diablo</div>
+            <div class="scenario-stats">40 MPH · NE · 045°</div>
+            <div class="scenario-desc">NorCal extreme offshore winds</div>
+          </div>
+          <div class="scenario-card" onclick="selectScenario('onshore_marine', this)">
+            <div class="scenario-icon">🌊</div>
+            <div class="scenario-name">Marine Flow</div>
+            <div class="scenario-stats">15 MPH · W · 270°</div>
+            <div class="scenario-desc">Pacific sea breeze pushing inland</div>
+          </div>
+          <div class="scenario-card" onclick="selectScenario('calm', this)">
+            <div class="scenario-icon">⭕</div>
+            <div class="scenario-name">Calm</div>
+            <div class="scenario-stats">0 MPH · CALM</div>
+            <div class="scenario-desc">Symmetric baseline circle</div>
+          </div>
+        </div>
+
+        <div class="section-label" style="margin-top:8px;">Target County</div>
+        <div class="location-toggle">
+          <div class="loc-btn" id="btn-la" onclick="selectLocation('los_angeles')">
+            📍 Los Angeles<br>
+            <small style="font-size:10px;letter-spacing:1px;opacity:0.7;">EVERBRIDGE</small>
+          </div>
+          <div class="loc-btn" id="btn-ven" onclick="selectLocation('ventura')">
+            📍 Ventura<br>
+            <small style="font-size:10px;letter-spacing:1px;opacity:0.7;">CODERED</small>
+          </div>
+        </div>
+
+        <button class="fire-btn" id="fireBtn" onclick="runSimulation()">
+          ⚡ FIRE SIMULATION
+        </button>
+
+        <!-- Pipeline stages -->
+        <div class="pipeline" id="pipeline">
+          <div class="stage" id="s-webhook">WEBHOOK</div>
+          <div class="stage-arrow">›</div>
+          <div class="stage" id="s-noaa">NOAA</div>
+          <div class="stage-arrow">›</div>
+          <div class="stage" id="s-zone">ZONE</div>
+          <div class="stage-arrow">›</div>
+          <div class="stage" id="s-router">ROUTER</div>
+          <div class="stage-arrow">›</div>
+          <div class="stage" id="s-dispatch">DISPATCH</div>
+          <div class="stage-arrow">›</div>
+          <div class="stage" id="s-map">MAP</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RIGHT: Results Panel -->
+    <div>
+      <div class="section-label">Live Results</div>
+      <div class="panel">
+
+        <div class="result-empty" id="resultEmpty">
+          <div class="result-empty-icon">📡</div>
+          <div class="result-empty-text">Awaiting simulation</div>
+        </div>
+
+        <div class="result-grid" id="resultGrid">
+
+          <div class="result-row">
+            <div class="result-block">
+              <div class="result-block-label">Detection ID</div>
+              <div class="result-block-value" id="r-id" style="font-size:13px;">—</div>
+              <div class="result-block-sub" id="r-confidence">Confidence: —</div>
+            </div>
+            <div class="result-block">
+              <div class="result-block-label">Wind</div>
+              <div class="result-block-value" id="r-wind">—</div>
+              <div class="result-block-sub" id="r-wind-dir">Direction: —</div>
+            </div>
+          </div>
+
+          <div class="result-row">
+            <div class="result-block">
+              <div class="result-block-label">Evacuation Zone</div>
+              <div class="result-block-value" id="r-area">—</div>
+              <div class="result-block-sub" id="r-skew">Skew: —</div>
+              <div class="skew-bar-wrap">
+                <div class="skew-bar-track">
+                  <div class="skew-bar-fill" id="skewBar"></div>
+                </div>
+              </div>
+            </div>
+            <div class="result-block">
+              <div class="result-block-label">Dispatch</div>
+              <div id="r-platform">—</div>
+              <div class="result-block-sub" id="r-county" style="margin-top:6px;">County: —</div>
+              <div class="result-block-sub" id="r-account">Account: —</div>
+            </div>
+          </div>
+
+          <div class="sms-preview">
+            <div class="sms-label">📱 SMS Preview</div>
+            <div class="sms-text" id="r-sms">—</div>
+          </div>
+
+          <div style="text-align:center;">
+            <div class="mock-badge">⚠ MOCK — NO REAL NOTIFICATION SENT</div>
+          </div>
+
+        </div>
+
+        <button class="map-btn" id="mapBtn" onclick="openMap()">
+          🗺 Open Live Map
+        </button>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="bottom-bar">
+    <div class="bottom-links">
+      <a href="/docs" target="_blank" class="bottom-link">API DOCS</a>
+      <a href="/config" target="_blank" class="bottom-link">COUNTY CONFIG</a>
+      <a href="/health" target="_blank" class="bottom-link">HEALTH</a>
+      <a href="/map" target="_blank" class="bottom-link">FULL MAP</a>
+    </div>
+    <div class="bottom-meta">
+      FIREBRIDGE v0.1.0 · IAN OSTROWSKI · NOT FOR OPERATIONAL USE
+    </div>
+  </div>
+
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+  // ── State ──────────────────────────────────────────────────────────────────
+  let selectedScenario = 'santa_ana';
+  let selectedLocation = null;
+
+  // ── Clock ──────────────────────────────────────────────────────────────────
+  function updateClock() {
+    const now = new Date();
+    document.getElementById('clock').textContent =
+      now.toUTCString().split(' ')[4] + ' UTC';
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+
+  // ── Scenario selection ─────────────────────────────────────────────────────
+  function selectScenario(name, el) {
+    selectedScenario = name;
+    document.querySelectorAll('.scenario-card').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  // ── Location selection ─────────────────────────────────────────────────────
+  function selectLocation(loc) {
+    selectedLocation = loc;
+    const laBtn = document.getElementById('btn-la');
+    const venBtn = document.getElementById('btn-ven');
+    laBtn.classList.remove('active-la');
+    venBtn.classList.remove('active-ven');
+    if (loc === 'los_angeles') laBtn.classList.add('active-la');
+    else venBtn.classList.add('active-ven');
+  }
+
+  // Default to LA
+  selectLocation('los_angeles');
+
+  // ── Pipeline animation ─────────────────────────────────────────────────────
+  const stages = ['s-webhook', 's-noaa', 's-zone', 's-router', 's-dispatch', 's-map'];
+
+  function resetPipeline() {
+    stages.forEach(s => {
+      const el = document.getElementById(s);
+      el.classList.remove('done', 'active-stage');
+    });
+  }
+
+  function animatePipeline() {
+    resetPipeline();
+    let i = 0;
+    const interval = setInterval(() => {
+      if (i > 0) {
+        document.getElementById(stages[i-1]).classList.remove('active-stage');
+        document.getElementById(stages[i-1]).classList.add('done');
+      }
+      if (i < stages.length) {
+        document.getElementById(stages[i]).classList.add('active-stage');
+        i++;
+      } else {
+        clearInterval(interval);
+        document.getElementById(stages[stages.length-1]).classList.remove('active-stage');
+        document.getElementById(stages[stages.length-1]).classList.add('done');
+      }
+    }, 380);
+  }
+
+  // ── Run simulation ─────────────────────────────────────────────────────────
+  async function runSimulation() {
+    const btn = document.getElementById('fireBtn');
+    btn.disabled = true;
+    btn.classList.add('loading');
+    btn.textContent = '⏳ RUNNING PIPELINE...';
+
+    resetPipeline();
+    animatePipeline();
+
+    const url = `/simulate/run?scenario=${selectedScenario}&location=${selectedLocation}&confidence=0.94`;
+
+    try {
+      const res = await fetch(url, { method: 'POST' });
+      const data = await res.json();
+
+      if (!res.ok) {
+        showToast('❌ Error: ' + (data.detail || 'Unknown error'));
+        return;
+      }
+
+      // Populate results
+      setTimeout(() => populateResults(data), 2000);
+
+    } catch(e) {
+      showToast('❌ Connection error — is the server running?');
+    } finally {
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.classList.remove('loading');
+        btn.textContent = '⚡ FIRE SIMULATION';
+      }, 2200);
+    }
+  }
+
+  function populateResults(data) {
+    // Hide empty, show grid
+    document.getElementById('resultEmpty').style.display = 'none';
+    document.getElementById('resultGrid').classList.add('visible');
+
+    // Detection
+    document.getElementById('r-id').textContent = data.detection?.detection_id || '—';
+    document.getElementById('r-confidence').textContent =
+      `Confidence: ${Math.round((data.detection?.confidence || 0) * 100)}%`;
+
+    // Wind
+    const wind = data.wind || {};
+    document.getElementById('r-wind').textContent = `${wind.wind_speed_mph || 0} mph`;
+    document.getElementById('r-wind-dir').textContent =
+      `From ${wind.wind_direction_cardinal || 'Calm'} (${wind.wind_direction_degrees || 0}°)`;
+
+    // Zone
+    const zone = data.evacuation_zone || {};
+    document.getElementById('r-area').textContent =
+      `${zone.area_sq_miles || '—'} sq mi`;
+    document.getElementById('r-skew').textContent =
+      `Skew: ${zone.skew_factor || 1}x downwind`;
+
+    // Skew bar (max 4x = 100%)
+    const skewPct = Math.min(((zone.skew_factor || 1) - 1) / 3 * 100, 100);
+    setTimeout(() => {
+      document.getElementById('skewBar').style.width = skewPct + '%';
+    }, 100);
+
+    // Dispatch
+    const dispatch = data.dispatch || {};
+    const platform = dispatch.platform || '—';
+    const platformEl = document.getElementById('r-platform');
+    platformEl.innerHTML = `<span class="platform-badge ${platform === 'CodeRED' ? 'codered' : 'everbridge'}">${platform}</span>`;
+    document.getElementById('r-county').textContent = `County: ${dispatch.county || '—'}`;
+    document.getElementById('r-account').textContent = `Account: ${dispatch.account_id || '—'}`;
+
+    // SMS
+    document.getElementById('r-sms').textContent = dispatch.sms_preview || '—';
+
+    // Show map button
+    document.getElementById('mapBtn').classList.add('visible');
+
+    showToast(`✅ ${data.scenario?.name} simulation complete`);
+  }
+
+  // ── Open map ───────────────────────────────────────────────────────────────
+  function openMap() {
+    window.open('/map', '_blank');
+  }
+
+  // ── Toast ──────────────────────────────────────────────────────────────────
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3500);
+  }
+</script>
+</body>
+</html>

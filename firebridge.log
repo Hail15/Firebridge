@@ -1,0 +1,144 @@
+2026-02-19 16:13:32,755 [INFO] 🔥 Detection received | ID=PANO-TEST-001 | Coords=(34.2521, -119.7534) | Confidence=91% | Camera=CAM-VENTURA-07
+2026-02-19 16:13:32,756 [INFO] NOAA points lookup: https://api.weather.gov/points/34.2521,-119.7534
+2026-02-19 16:13:33,506 [INFO] NWS Grid: LOX (102,63) → https://api.weather.gov/gridpoints/LOX/102,63/forecast/hourly
+2026-02-19 16:13:34,322 [ERROR] NOAA hourly forecast failed: 404 Client Error: Not Found for url: https://api.weather.gov/gridpoints/LOX/102,63/forecast/hourly
+2026-02-19 16:15:03,666 [INFO] 🔥 Detection received | ID=PANO-TEST-001 | Coords=(34.0522, -118.2437) | Confidence=91% | Camera=CAM-VENTURA-07
+2026-02-19 16:15:03,666 [INFO] NOAA points lookup: https://api.weather.gov/points/34.0522,-118.2437
+2026-02-19 16:15:03,795 [INFO] NWS Grid: LOX (155,45) → https://api.weather.gov/gridpoints/LOX/155,45/forecast/hourly
+2026-02-19 16:15:03,909 [INFO] Wind data → 25.0 mph from SSE (157.5°)
+2026-02-19 16:15:03,913 [INFO] ✅ Event enriched | Wind: 25.0 mph from SSE — ready for polygon generation.
+2026-02-24 12:43:56,110 [INFO] 🔥 Detection received | ID=PANO-TEST-001 | Coords=(34.2521, -119.7534) | Confidence=91% | Camera=CAM-VENTURA-07
+2026-02-24 12:43:56,110 [INFO] NOAA points lookup: https://api.weather.gov/points/34.2521,-119.7534
+2026-02-24 12:43:57,404 [INFO] NWS Grid: LOX (102,63) → https://api.weather.gov/gridpoints/LOX/102,63/forecast/hourly
+2026-02-24 12:43:57,959 [ERROR] NOAA hourly forecast failed: 404 Client Error: Not Found for url: https://api.weather.gov/gridpoints/LOX/102,63/forecast/hourly
+2026-02-24 12:46:02,876 [INFO] 🔥 Detection received | ID=PANO-TEST-001 | Coords=(34.0522, -118.2437) | Confidence=91% | Camera=CAM-VENTURA-07
+2026-02-24 12:46:02,876 [INFO] NOAA points lookup: https://api.weather.gov/points/34.0522,-118.2437
+2026-02-24 12:46:03,001 [INFO] NWS Grid: LOX (155,45) → https://api.weather.gov/gridpoints/LOX/155,45/forecast/hourly
+2026-02-24 12:46:03,565 [INFO] Wind data → 0.0 mph from  (0.0°)
+2026-02-24 12:46:03,570 [INFO] Building evacuation zone | Origin=(34.0522, -118.2437) | Wind=0.0 mph from 0.0° | Base radius=2.0 miles
+2026-02-24 12:46:03,572 [INFO] Wind skew factor: 1.00x (wind=0.0 mph)
+2026-02-24 12:46:03,573 [INFO] Polygon generated | Downwind direction=180.0° | Rotation angle=-90.0° | Area=0.002639 sq degrees
+2026-02-24 12:46:03,574 [INFO] ✅ Zone complete | Area=12.6 sq miles | Skew=1.00x | Downwind tip=(34.0232, -118.2437)
+2026-02-24 12:46:03,574 [INFO] ✅ Event enriched | Wind: 0.0 mph from  | Zone: 12.57 sq miles | Skew: 1.0x downwind
+2026-02-24 12:52:28,119 [INFO] 🔥 Detection received | ID=PANO-TEST-001 | Coords=(34.2521, -119.7534) | Confidence=91% | Camera=CAM-VENTURA-07
+2026-02-24 12:52:28,120 [INFO] NOAA points lookup: https://api.weather.gov/points/34.2521,-119.7534
+2026-02-24 12:52:28,341 [INFO] NWS Grid: LOX (102,63) → https://api.weather.gov/gridpoints/LOX/102,63/forecast/hourly
+2026-02-24 12:52:28,997 [ERROR] NOAA hourly forecast failed: 404 Client Error: Not Found for url: https://api.weather.gov/gridpoints/LOX/102,63/forecast/hourly
+2026-02-24 12:53:17,531 [INFO] 🔥 Detection received | ID=PANO-TEST-001 | Coords=(34.0522, -118.2437) | Confidence=91% | Camera=CAM-VENTURA-07
+2026-02-24 12:53:17,531 [INFO] NOAA points lookup: https://api.weather.gov/points/34.0522,-118.2437
+2026-02-24 12:53:17,668 [INFO] NWS Grid: LOX (155,45) → https://api.weather.gov/gridpoints/LOX/155,45/forecast/hourly
+2026-02-24 12:53:17,758 [INFO] Wind data → 0.0 mph from  (0.0°)
+2026-02-24 12:53:17,762 [INFO] Building evacuation zone | Origin=(34.0522, -118.2437) | Wind=0.0 mph from 0.0° | Base radius=2.0 miles
+2026-02-24 12:53:17,763 [INFO] Wind skew factor: 1.00x (wind=0.0 mph)
+2026-02-24 12:53:17,764 [INFO] Polygon generated | Downwind direction=180.0° | Rotation angle=-90.0° | Area=0.002639 sq degrees
+2026-02-24 12:53:17,765 [INFO] ✅ Zone complete | Area=12.6 sq miles | Skew=1.00x | Downwind tip=(34.0232, -118.2437)
+2026-02-24 12:53:17,765 [INFO] County resolved by coordinates: Los Angeles
+2026-02-24 12:53:17,765 [INFO] Routing to Everbridge | County=Los Angeles | Account=EB-LA-COUNTY-8821 | Method=coordinates
+2026-02-24 12:53:17,765 [INFO] ✅ Mock dispatch complete | County=Los Angeles | Platform=Everbridge | Account=EB-LA-COUNTY-8821
+2026-02-24 12:53:17,765 [INFO] ✅ Pipeline complete | Wind: 0.0 mph from  | Zone: 12.57 sq miles | Platform: Everbridge | County: Los Angeles
+2026-02-24 14:06:11,688 [INFO] 🔥 Detection received | ID=PANO-TEST-001 | Coords=(34.2521, -119.7534) | Confidence=91% | Camera=CAM-VENTURA-07
+2026-02-24 14:06:11,688 [INFO] NOAA points lookup: https://api.weather.gov/points/34.2521,-119.7534
+2026-02-24 14:06:11,818 [INFO] NWS Grid: LOX (102,63) → https://api.weather.gov/gridpoints/LOX/102,63/forecast/hourly
+2026-02-24 14:06:12,604 [ERROR] NOAA hourly forecast failed: 404 Client Error: Not Found for url: https://api.weather.gov/gridpoints/LOX/102,63/forecast/hourly
+2026-02-24 14:08:11,401 [INFO] 🔥 Detection received | ID=PANO-TEST-001 | Coords=(34.0522, -118.2437) | Confidence=91% | Camera=CAM-VENTURA-07
+2026-02-24 14:08:11,401 [INFO] NOAA points lookup: https://api.weather.gov/points/34.0522,-118.2437
+2026-02-24 14:08:11,517 [INFO] NWS Grid: LOX (155,45) → https://api.weather.gov/gridpoints/LOX/155,45/forecast/hourly
+2026-02-24 14:08:11,635 [INFO] Wind data → 0.0 mph from  (0.0°)
+2026-02-24 14:08:11,639 [INFO] Building evacuation zone | Origin=(34.0522, -118.2437) | Wind=0.0 mph from 0.0° | Base radius=2.0 miles
+2026-02-24 14:08:11,640 [INFO] Wind skew factor: 1.00x (wind=0.0 mph)
+2026-02-24 14:08:11,641 [INFO] Polygon generated | Downwind direction=180.0° | Rotation angle=-90.0° | Area=0.002639 sq degrees
+2026-02-24 14:08:11,642 [INFO] ✅ Zone complete | Area=12.6 sq miles | Skew=1.00x | Downwind tip=(34.0232, -118.2437)
+2026-02-24 14:08:11,642 [INFO] County resolved by coordinates: Los Angeles
+2026-02-24 14:08:11,642 [INFO] Routing to Everbridge | County=Los Angeles | Account=EB-LA-COUNTY-8821 | Method=coordinates
+2026-02-24 14:08:11,642 [INFO] ✅ Mock dispatch complete | County=Los Angeles | Platform=Everbridge | Account=EB-LA-COUNTY-8821
+2026-02-24 14:08:11,642 [INFO] Building map | Fire=(34.0522,-118.2437) | County=Los Angeles | Platform=Everbridge
+2026-02-24 14:08:11,681 [INFO] ✅ Map saved → /Users/ianostrowski/Desktop/FireBridge/firebridge_map.html
+2026-02-24 14:08:11,681 [INFO] ✅ Pipeline complete | Wind: 0.0 mph from  | Zone: 12.57 sq miles | Platform: Everbridge | County: Los Angeles | Map: /Users/ianostrowski/Desktop/FireBridge/firebridge_map.html
+2026-02-24 14:34:43,848 [INFO] 🎮 Simulation | Scenario=santa_ana | Location=los_angeles | Wind=35 mph from NE
+2026-02-24 14:34:43,848 [INFO] Building evacuation zone | Origin=(34.0522, -118.2437) | Wind=35 mph from 45° | Base radius=2.0 miles
+2026-02-24 14:34:43,848 [INFO] Wind skew factor: 2.75x (wind=35 mph)
+2026-02-24 14:34:43,849 [INFO] Polygon generated | Downwind direction=225° | Rotation angle=-135° | Area=0.007258 sq degrees
+2026-02-24 14:34:43,849 [INFO] ✅ Zone complete | Area=34.6 sq miles | Skew=2.75x | Downwind tip=(34.0317, -118.2642)
+2026-02-24 14:34:43,849 [INFO] County resolved by coordinates: Los Angeles
+2026-02-24 14:34:43,849 [INFO] Routing to Everbridge | County=Los Angeles | Account=EB-LA-COUNTY-8821 | Method=coordinates
+2026-02-24 14:34:43,849 [INFO] ✅ Mock dispatch complete | County=Los Angeles | Platform=Everbridge | Account=EB-LA-COUNTY-8821
+2026-02-24 14:34:43,849 [INFO] Building map | Fire=(34.0522,-118.2437) | County=Los Angeles | Platform=Everbridge
+2026-02-24 14:34:43,885 [INFO] ✅ Map saved → /Users/ianostrowski/Desktop/FireBridge/firebridge_map.html
+2026-02-24 14:34:43,885 [INFO] ✅ Simulation complete | Santa Ana Winds | Los Angeles County | Zone: 34.55 sq mi | Platform: Everbridge | Skew: 2.75x
+2026-02-24 14:36:03,605 [INFO] 🎮 Simulation | Scenario=diablo | Location=los_angeles | Wind=40 mph from NE
+2026-02-24 14:36:03,606 [INFO] Building evacuation zone | Origin=(34.0522, -118.2437) | Wind=40 mph from 45° | Base radius=2.0 miles
+2026-02-24 14:36:03,606 [INFO] Wind skew factor: 3.00x (wind=40 mph)
+2026-02-24 14:36:03,606 [INFO] Polygon generated | Downwind direction=225° | Rotation angle=-135° | Area=0.007918 sq degrees
+2026-02-24 14:36:03,606 [INFO] ✅ Zone complete | Area=37.7 sq miles | Skew=3.00x | Downwind tip=(34.0317, -118.2642)
+2026-02-24 14:36:03,606 [INFO] County resolved by coordinates: Los Angeles
+2026-02-24 14:36:03,606 [INFO] Routing to Everbridge | County=Los Angeles | Account=EB-LA-COUNTY-8821 | Method=coordinates
+2026-02-24 14:36:03,606 [INFO] ✅ Mock dispatch complete | County=Los Angeles | Platform=Everbridge | Account=EB-LA-COUNTY-8821
+2026-02-24 14:36:03,607 [INFO] Building map | Fire=(34.0522,-118.2437) | County=Los Angeles | Platform=Everbridge
+2026-02-24 14:36:03,643 [INFO] ✅ Map saved → /Users/ianostrowski/Desktop/FireBridge/firebridge_map.html
+2026-02-24 14:36:03,643 [INFO] ✅ Simulation complete | Diablo Winds | Los Angeles County | Zone: 37.7 sq mi | Platform: Everbridge | Skew: 3.0x
+2026-02-24 14:37:25,970 [INFO] 🎮 Simulation | Scenario=santa_ana | Location=ventura | Wind=35 mph from NE
+2026-02-24 14:37:25,970 [INFO] Building evacuation zone | Origin=(34.3705, -119.1391) | Wind=35 mph from 45° | Base radius=2.0 miles
+2026-02-24 14:37:25,970 [INFO] Wind skew factor: 2.75x (wind=35 mph)
+2026-02-24 14:37:25,971 [INFO] Polygon generated | Downwind direction=225° | Rotation angle=-135° | Area=0.007258 sq degrees
+2026-02-24 14:37:25,972 [INFO] ✅ Zone complete | Area=34.6 sq miles | Skew=2.75x | Downwind tip=(34.3500, -119.1596)
+2026-02-24 14:37:25,972 [INFO] County resolved by coordinates: Ventura
+2026-02-24 14:37:25,972 [INFO] Routing to CodeRED | County=Ventura | Account=CR-VENTURA-0042 | Method=coordinates
+2026-02-24 14:37:25,972 [INFO] ✅ Mock dispatch complete | County=Ventura | Platform=CodeRED | Account=CR-VENTURA-0042
+2026-02-24 14:37:25,973 [INFO] Building map | Fire=(34.3705,-119.1391) | County=Ventura | Platform=CodeRED
+2026-02-24 14:37:26,009 [INFO] ✅ Map saved → /Users/ianostrowski/Desktop/FireBridge/firebridge_map.html
+2026-02-24 14:37:26,009 [INFO] ✅ Simulation complete | Santa Ana Winds | Ventura County | Zone: 34.55 sq mi | Platform: CodeRED | Skew: 2.75x
+2026-02-24 14:44:21,279 [INFO] 🎮 Simulation | Scenario=santa_ana | Location=los_angeles | Wind=35 mph from NE
+2026-02-24 14:44:21,279 [INFO] Building evacuation zone | Origin=(34.0522, -118.2437) | Wind=35 mph from 45° | Base radius=2.0 miles
+2026-02-24 14:44:21,280 [INFO] Wind skew factor: 2.75x (wind=35 mph)
+2026-02-24 14:44:21,280 [INFO] Polygon generated | Downwind direction=225° | Rotation angle=-135° | Area=0.007258 sq degrees
+2026-02-24 14:44:21,281 [INFO] ✅ Zone complete | Area=34.6 sq miles | Skew=2.75x | Downwind tip=(34.0317, -118.2642)
+2026-02-24 14:44:21,281 [INFO] County resolved by coordinates: Los Angeles
+2026-02-24 14:44:21,281 [INFO] Routing to Everbridge | County=Los Angeles | Account=EB-LA-COUNTY-8821 | Method=coordinates
+2026-02-24 14:44:21,281 [INFO] ✅ Mock dispatch complete | County=Los Angeles | Platform=Everbridge | Account=EB-LA-COUNTY-8821
+2026-02-24 14:44:21,281 [INFO] Building map | Fire=(34.0522,-118.2437) | County=Los Angeles | Platform=Everbridge
+2026-02-24 14:44:21,320 [INFO] ✅ Map saved → /Users/ianostrowski/Desktop/FireBridge/firebridge_map.html
+2026-02-24 14:44:21,321 [INFO] ✅ Simulation complete | Santa Ana Winds | Los Angeles County | Zone: 34.55 sq mi | Platform: Everbridge | Skew: 2.75x
+2026-02-25 09:52:14,879 [INFO] 🎮 Simulation | Scenario=calm | Location=ventura | Wind=0 mph from Calm
+2026-02-25 09:52:14,879 [INFO] Building evacuation zone | Origin=(34.3705, -119.1391) | Wind=0 mph from 0° | Base radius=2.0 miles
+2026-02-25 09:52:14,881 [INFO] Wind skew factor: 1.00x (wind=0 mph)
+2026-02-25 09:52:14,882 [INFO] Polygon generated | Downwind direction=180° | Rotation angle=-90° | Area=0.002639 sq degrees
+2026-02-25 09:52:14,883 [INFO] ✅ Zone complete | Area=12.6 sq miles | Skew=1.00x | Downwind tip=(34.3415, -119.1391)
+2026-02-25 09:52:14,883 [INFO] County resolved by coordinates: Ventura
+2026-02-25 09:52:14,884 [INFO] Routing to CodeRED | County=Ventura | Account=CR-VENTURA-0042 | Method=coordinates
+2026-02-25 09:52:14,884 [INFO] ✅ Mock dispatch complete | County=Ventura | Platform=CodeRED | Account=CR-VENTURA-0042
+2026-02-25 09:52:14,884 [INFO] Building map | Fire=(34.3705,-119.1391) | County=Ventura | Platform=CodeRED
+2026-02-25 09:52:14,925 [INFO] ✅ Map saved → /Users/ianostrowski/Desktop/FireBridge/firebridge_map.html
+2026-02-25 09:52:14,925 [INFO] ✅ Simulation complete | Calm Conditions | Ventura County | Zone: 12.57 sq mi | Platform: CodeRED | Skew: 1.0x
+2026-02-25 09:53:12,567 [INFO] 🎮 Simulation | Scenario=diablo | Location=ventura | Wind=40 mph from NE
+2026-02-25 09:53:12,567 [INFO] Building evacuation zone | Origin=(34.3705, -119.1391) | Wind=40 mph from 45° | Base radius=2.0 miles
+2026-02-25 09:53:12,568 [INFO] Wind skew factor: 3.00x (wind=40 mph)
+2026-02-25 09:53:12,568 [INFO] Polygon generated | Downwind direction=225° | Rotation angle=-135° | Area=0.007918 sq degrees
+2026-02-25 09:53:12,569 [INFO] ✅ Zone complete | Area=37.7 sq miles | Skew=3.00x | Downwind tip=(34.3500, -119.1596)
+2026-02-25 09:53:12,569 [INFO] County resolved by coordinates: Ventura
+2026-02-25 09:53:12,569 [INFO] Routing to CodeRED | County=Ventura | Account=CR-VENTURA-0042 | Method=coordinates
+2026-02-25 09:53:12,569 [INFO] ✅ Mock dispatch complete | County=Ventura | Platform=CodeRED | Account=CR-VENTURA-0042
+2026-02-25 09:53:12,569 [INFO] Building map | Fire=(34.3705,-119.1391) | County=Ventura | Platform=CodeRED
+2026-02-25 09:53:12,605 [INFO] ✅ Map saved → /Users/ianostrowski/Desktop/FireBridge/firebridge_map.html
+2026-02-25 09:53:12,605 [INFO] ✅ Simulation complete | Diablo Winds | Ventura County | Zone: 37.7 sq mi | Platform: CodeRED | Skew: 3.0x
+2026-02-25 10:19:10,728 [INFO] 🎮 Simulation | Scenario=calm | Location=ventura | Wind=0 mph from Calm
+2026-02-25 10:19:10,729 [INFO] Building evacuation zone | Origin=(34.3705, -119.1391) | Wind=0 mph from 0° | Base radius=2.0 miles
+2026-02-25 10:19:10,730 [INFO] Wind skew factor: 1.00x (wind=0 mph)
+2026-02-25 10:19:10,730 [INFO] Polygon generated | Downwind direction=180° | Rotation angle=-90° | Area=0.002639 sq degrees
+2026-02-25 10:19:10,730 [INFO] ✅ Zone complete | Area=12.6 sq miles | Skew=1.00x | Downwind tip=(34.3415, -119.1391)
+2026-02-25 10:19:10,730 [INFO] County resolved by coordinates: Ventura
+2026-02-25 10:19:10,730 [INFO] Routing to CodeRED | County=Ventura | Account=CR-VENTURA-0042 | Method=coordinates
+2026-02-25 10:19:10,730 [INFO] ✅ Mock dispatch complete | County=Ventura | Platform=CodeRED | Account=CR-VENTURA-0042
+2026-02-25 10:19:10,731 [INFO] Building map | Fire=(34.3705,-119.1391) | County=Ventura | Platform=CodeRED
+2026-02-25 10:19:10,770 [INFO] ✅ Map saved → /Users/ianostrowski/Desktop/FireBridge/firebridge_map.html
+2026-02-25 10:19:10,770 [INFO] ✅ Simulation complete | Calm Conditions | Ventura County | Zone: 12.57 sq mi | Platform: CodeRED | Skew: 1.0x
+2026-02-25 10:20:00,447 [INFO] 🎮 Simulation | Scenario=diablo | Location=ventura | Wind=40 mph from NE
+2026-02-25 10:20:00,447 [INFO] Building evacuation zone | Origin=(34.3705, -119.1391) | Wind=40 mph from 45° | Base radius=2.0 miles
+2026-02-25 10:20:00,447 [INFO] Wind skew factor: 3.00x (wind=40 mph)
+2026-02-25 10:20:00,448 [INFO] Polygon generated | Downwind direction=225° | Rotation angle=-135° | Area=0.007918 sq degrees
+2026-02-25 10:20:00,449 [INFO] ✅ Zone complete | Area=37.7 sq miles | Skew=3.00x | Downwind tip=(34.3500, -119.1596)
+2026-02-25 10:20:00,449 [INFO] County resolved by coordinates: Ventura
+2026-02-25 10:20:00,449 [INFO] Routing to CodeRED | County=Ventura | Account=CR-VENTURA-0042 | Method=coordinates
+2026-02-25 10:20:00,449 [INFO] ✅ Mock dispatch complete | County=Ventura | Platform=CodeRED | Account=CR-VENTURA-0042
+2026-02-25 10:20:00,449 [INFO] Building map | Fire=(34.3705,-119.1391) | County=Ventura | Platform=CodeRED
+2026-02-25 10:20:00,486 [INFO] ✅ Map saved → /Users/ianostrowski/Desktop/FireBridge/firebridge_map.html
+2026-02-25 10:20:00,486 [INFO] ✅ Simulation complete | Diablo Winds | Ventura County | Zone: 37.7 sq mi | Platform: CodeRED | Skew: 3.0x
