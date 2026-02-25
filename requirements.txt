@@ -10,7 +10,7 @@ requests==2.32.3
 
 # Geospatial processing (Phase 2 — polygon generation)
 geopandas==0.14.4
-shapely==2.0.4
+shapely==2.0.6
 
 # Map rendering (Phase 3 — Folium map output)
 folium==0.16.0
