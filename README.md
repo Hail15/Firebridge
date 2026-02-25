@@ -6,6 +6,8 @@
 
 **Middleware that connects Pano AI wildfire detection to mass notification platforms — automatically.**
 
+**[Live Demo](https://firebridge-production.up.railway.app/dashboard)** — firebridge-production.up.railway.app
+
 ![FireBridge](https://img.shields.io/badge/version-0.1.0-FF4500?style=flat-square)
 ![Python](https://img.shields.io/badge/python-3.12-white?style=flat-square)
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square)
@@ -130,7 +132,7 @@ firebridge/
 
 ## Built By
 
-**Ian Ostrowski**  
+**Ian Ostrowski**   
 Built independently as a proof of concept demonstrating automated integration between Pano AI wildfire detection and mass notification platforms.
 
 ---
