@@ -130,7 +130,7 @@ firebridge/
 
 ## Built By
 
-**Ian Ostrowski** — CodeRED Specialist at Crisis24.  
+**Ian Ostrowski** 
 Built independently as a proof of concept demonstrating automated integration between Pano AI wildfire detection and mass notification platforms.
 
 ---
